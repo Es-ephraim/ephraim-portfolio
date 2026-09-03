@@ -1,26 +1,34 @@
-import { Mail, Code2, ExternalLink } from 'lucide-react'
+import { Mail} from 'lucide-react'
 import { motion } from 'motion/react'
+import { FaWhatsapp, FaGithub, FaLinkedin } from 'react-icons/fa'
 
 function Contact() {
   const contactLinks = [
     {
       title: 'Email',
-      description: 'kithinjimephraim@gmail.com',
+      description: 'Send me an email',
       href: 'mailto:kithinjimephraim@gmail.com',
       icon: Mail,
     },
     {
+        title: 'WhatsApp',
+        description: 'Chat on WhatsApp',
+        href: 'https://wa.me/+254799689652',
+        icon: FaWhatsapp,
+        external: true,
+      },
+    {
       title: 'LinkedIn',
       description: 'Connect with me',
       href: 'https://www.linkedin.com/in/ephraim-munene-ab3321369',
-      icon: ExternalLink,
+      icon: FaLinkedin,
       external: true,
     },
     {
       title: 'GitHub',
       description: 'View my code',
       href: 'https://github.com/Es-ephraim',
-      icon: Code2,
+      icon: FaGithub,
       external: true,
     },
   ]
@@ -64,7 +72,7 @@ function Contact() {
               },
             },
           }}
-          className="mt-12 grid gap-6 md:grid-cols-3"
+          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
         >
 
           {contactLinks.map((contact) => {
