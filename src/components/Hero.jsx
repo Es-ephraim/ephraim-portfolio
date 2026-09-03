@@ -50,7 +50,7 @@ function Hero() {
             </a>
 
             <a
-              href="/Ephraim_Kithinji_Curriculum_Vitae.pdf"
+              href={`${import.meta.env.BASE_URL}Ephraim_Kithinji_Curriculum_Vitae.pdf`}
               download="Ephraim_Kithinji_Curriculum_Vitae.pdf"
               className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-7 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-400"
             >
