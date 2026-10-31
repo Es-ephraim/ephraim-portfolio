@@ -34,7 +34,7 @@ function Contact() {
   ]
 
   return (
-    <section id="contact" className="bg-slate-900 px-6 py-24">
+    <section id="contact" className="bg-slate-900 px-6 py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-5xl">
 
         {/* Heading */}
@@ -45,11 +45,11 @@ function Contact() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="text-center"
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400 sm:tracking-[0.3em]">
             Contact
           </p>
 
-          <h2 className="text-4xl font-bold text-white md:text-5xl">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl">
             Let's work together.
           </h2>
 
@@ -106,7 +106,7 @@ function Contact() {
                     duration: 0.2,
                   },
                 }}
-                className="rounded-2xl border border-white/10 bg-slate-950 p-7 text-center transition duration-300 hover:border-cyan-400/40"
+                className="rounded-2xl border border-white/10 bg-slate-950 p-5 text-center transition duration-300 hover:border-cyan-400/40 sm:p-7"
               >
                 {/* Icon */}
                 <motion.div

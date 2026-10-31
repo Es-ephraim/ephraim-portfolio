@@ -1,222 +1,174 @@
-import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
+import { Link, NavLink } from 'react-router-dom'
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const links = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Skills', href: '/skills' },
+    { name: 'Experience', href: '/experience' },
+    { name: 'Projects', href: '/projects' },
   ]
 
-  const handleNavigation = (href) => {
-    setIsOpen(false)
-
-    setTimeout(() => {
-      const section = document.querySelector(href)
-
-      if (section) {
-        section.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        })
+  // Close mobile menu when Escape is pressed
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
       }
-    }, 100)
-  }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  const closeMenu = () => setIsOpen(false)
 
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.6,
-        ease: 'easeOut',
-      }}
-      className="fixed top-0 z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-md"
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className="fixed top-0 z-50 w-full border-b border-white/[0.08] bg-[#070b14]/85 shadow-lg shadow-black/10 backdrop-blur-xl"
+      aria-label="Main navigation"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10 lg:px-16">
 
         {/* Logo */}
-        <motion.a
-          href="#"
-          initial={{ opacity: 0, x: -15 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{
-            duration: 0.5,
-            delay: 0.2,
-          }}
-          whileHover={{ scale: 1.05 }}
-          className="text-xl font-bold text-white"
+        <Link
+          to="/"
+          onClick={closeMenu}
+          className="text-2xl font-bold tracking-tight text-white transition hover:text-cyan-400"
         >
           Eph<span className="text-cyan-400">.</span>
-        </motion.a>
+        </Link>
 
         {/* Desktop Navigation */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.25,
-              },
-            },
-          }}
-          className="hidden items-center gap-8 md:flex"
-        >
+        <div className="hidden items-center gap-7 md:flex lg:gap-9">
           {links.map((link) => (
-            <motion.a
+            <NavLink
               key={link.name}
-              href={link.href}
-              variants={{
-                hidden: {
-                  opacity: 0,
-                  y: -10,
-                },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    duration: 0.4,
-                  },
-                },
-              }}
-              whileHover={{ y: -2 }}
-              className="text-sm text-slate-300 transition hover:text-cyan-400"
+              to={link.href}
+              end={link.href === '/'}
+              className={({ isActive }) =>
+                `relative py-2 text-sm font-medium transition-colors duration-300 ${
+                  isActive
+                    ? 'text-cyan-400'
+                    : 'text-slate-400 hover:text-white'
+                }`
+              }
             >
-              {link.name}
-            </motion.a>
+              {({ isActive }) => (
+                <>
+                  {link.name}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeNav"
+                      className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-cyan-400"
+                    />
+                  )}
+                </>
+              )}
+            </NavLink>
           ))}
 
-          {/* Contact */}
-          <motion.a
-            href="#contact"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.4,
-              delay: 0.65,
-            }}
-            whileHover={{
-              scale: 1.05,
-            }}
-            whileTap={{
-              scale: 0.97,
-            }}
-            className="rounded-full border border-cyan-400 px-5 py-2 text-sm text-cyan-400 transition hover:bg-cyan-400 hover:text-slate-950"
+          <Link
+            to="/contact"
+            className="group inline-flex items-center gap-2 rounded-full border border-cyan-400/60 px-5 py-2.5 text-sm font-semibold text-cyan-400 transition duration-300 hover:border-cyan-400 hover:bg-cyan-400 hover:text-slate-950"
           >
             Contact
-          </motion.a>
-        </motion.div>
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
 
         {/* Mobile Menu Button */}
-        <motion.button
-          whileTap={{ scale: 0.9 }}
+        <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-center rounded-lg p-2 text-slate-300 transition hover:text-cyan-400 md:hidden"
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          className="flex items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] p-2.5 text-slate-300 transition hover:border-cyan-400/40 hover:text-cyan-400 md:hidden"
+          aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
         >
           <AnimatePresence mode="wait" initial={false}>
             {isOpen ? (
-              <motion.div
+              <motion.span
                 key="close"
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
               >
                 <X className="h-6 w-6" />
-              </motion.div>
+              </motion.span>
             ) : (
-              <motion.div
+              <motion.span
                 key="menu"
                 initial={{ rotate: 90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
               >
                 <Menu className="h-6 w-6" />
-              </motion.div>
+              </motion.span>
             )}
           </AnimatePresence>
-        </motion.button>
-
+        </button>
       </div>
 
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden border-t border-white/10 bg-slate-950/95 md:hidden"
+            className="overflow-hidden border-t border-white/[0.08] bg-[#070b14]/98 md:hidden"
           >
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.08,
-                  },
-                },
-              }}
-              className="flex flex-col px-6 py-5"
-            >
+            <div className="flex flex-col px-6 py-5 sm:px-10">
 
-              {links.map((link) => (
-                <motion.button
+              {links.map((link, index) => (
+                <motion.div
                   key={link.name}
-                  onClick={() => handleNavigation(link.href)}
-                  variants={{
-                    hidden: {
-                      opacity: 0,
-                      x: -20,
-                    },
-                    visible: {
-                      opacity: 1,
-                      x: 0,
-                    },
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="border-b border-white/5 py-4 text-left text-slate-300 transition hover:text-cyan-400"
+                  initial={{ opacity: 0, x: -15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.06 }}
                 >
-                  {link.name}
-                </motion.button>
+                  <NavLink
+                    to={link.href}
+                    end={link.href === '/'}
+                    onClick={closeMenu}
+                    className={({ isActive }) =>
+                      `block border-b border-white/[0.06] py-4 text-base font-medium transition-colors ${
+                        isActive
+                          ? 'text-cyan-400'
+                          : 'text-slate-300 hover:text-cyan-400'
+                      }`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                </motion.div>
               ))}
 
-              <motion.button
-                onClick={() => handleNavigation('#contact')}
-                variants={{
-                  hidden: {
-                    opacity: 0,
-                    x: -20,
-                  },
-                  visible: {
-                    opacity: 1,
-                    x: 0,
-                  },
-                }}
-                transition={{ duration: 0.3 }}
-                className="mt-4 rounded-full border border-cyan-400 px-5 py-3 text-center text-sm font-medium text-cyan-400 transition hover:bg-cyan-400 hover:text-slate-950"
+              <Link
+                to="/contact"
+                onClick={closeMenu}
+                className="mt-5 flex items-center justify-center gap-2 rounded-full bg-cyan-400 px-5 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
               >
-                Contact
-              </motion.button>
+                Get in touch
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
 
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-
     </motion.nav>
   )
 }

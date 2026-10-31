@@ -1,32 +1,86 @@
 @import "tailwindcss";
 
+:root {
+  font-family: Inter, "Segoe UI", sans-serif;
+  color: #f8fafc;
+  background: #070b14;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  background: #070b14;
 }
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
-html {
-  scroll-behavior: smooth;
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  color: #020617;
+  background: #67e8f9;
+}
+
+.hero-grid {
+  background-color: #070b14;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
+  background-size: 54px 54px;
+}
+
+.hero-glow {
+  background: rgba(6, 182, 212, 0.13);
+  filter: blur(120px);
+}
+
+.gradient-text {
+  background: linear-gradient(100deg, #67e8f9 5%, #22d3ee 45%, #818cf8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.section-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 section {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 90px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

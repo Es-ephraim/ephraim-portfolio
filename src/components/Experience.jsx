@@ -32,7 +32,7 @@ const experiences = [
 
 function Experience() {
   return (
-    <section id="experience" className="bg-slate-900 px-6 py-24">
+    <section id="experience" className="bg-slate-900 px-6 py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl">
 
         {/* Section Heading */}
@@ -43,11 +43,11 @@ function Experience() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="mb-14"
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400 sm:tracking-[0.3em]">
             Experience
           </p>
 
-          <h2 className="text-4xl font-bold text-white md:text-5xl">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl">
             Where I've put my skills to work.
           </h2>
 
@@ -99,7 +99,7 @@ function Experience() {
                   y: -5,
                   transition: { duration: 0.2 },
                 }}
-                className="rounded-2xl border border-white/10 bg-slate-950 p-7 transition duration-300 hover:border-cyan-400/40"
+                className="rounded-2xl border border-white/10 bg-slate-950 p-5 transition duration-300 hover:border-cyan-400/40 sm:p-7"
               >
 
                 <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
