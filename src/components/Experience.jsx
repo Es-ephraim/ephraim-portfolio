@@ -1,178 +1,201 @@
 import { motion } from 'motion/react'
+import { BriefcaseBusiness, CalendarDays, ArrowUpRight } from 'lucide-react'
 
 const experiences = [
-  {
-    company: 'Horsebridge Network Systems',
-    role: 'IT Intern',
-    period: '2025',
-    description:
-      'Provided technical support and assisted with IT infrastructure, networking and security systems.',
-    responsibilities: [
-      'Provided computer hardware and software troubleshooting and technical support.',
-      'Assisted with network connectivity and infrastructure troubleshooting.',
-      'Supported CCTV systems and unified security management systems.',
-      'Assisted with installation, configuration and maintenance of IT equipment.',
-      'Diagnosed and resolved day-to-day technical issues for users and systems.',
-    ],
-  },
-  {
-    company: 'National Cereals and Produce Board (NCPB)',
-    role: 'IT Intern',
-    period: '2024',
-    description:
-      'Gained practical experience supporting IT operations and assisting with day-to-day technical activities.',
-    responsibilities: [
-      'Provided technical support to users and staff.',
-      'Assisted with computer hardware and software troubleshooting.',
-      'Supported routine IT maintenance and system operations.',
-      'Assisted with network and connectivity-related issues.',
-    ],
-  },
+{
+company: 'Horsebridge Network Systems E.A. Ltd',
+role: 'ICT Systems Engineer Intern',
+period: '2025',
+type: 'Networking & IT Infrastructure',
+description:
+'Worked alongside the ICT team to support IT infrastructure, enterprise systems, networking equipment and integrated security solutions.',
+responsibilities: [
+'Provided first-line technical support, troubleshooting desktop computers, laptops, software and network peripherals.',
+'Managed Windows user accounts within a domain environment.',
+'Installed, configured and supported Microsoft 365 applications, including licensing and user assistance.',
+'Installed, configured and monitored CCTV cameras and Unified Security Management Systems.',
+'Installed and maintained biometric access control systems and automated gate bollards.',
+'Used Znuny IT Service Management to log support requests, track incidents and document technical solutions.',
+],
+technologies: [
+'Windows',
+'Microsoft 365',
+'Networking',
+'CCTV',
+'Access Control',
+'Znuny ITSM',
+],
+},
+{
+company: 'National Cereals and Produce Board (NCPB)',
+role: 'ICT Intern',
+period: '2024',
+type: 'Corporate IT Support',
+description:
+'Supported day-to-day ICT operations at the Head Office, helping staff maintain productivity through reliable technical support and equipment maintenance.',
+responsibilities: [
+'Provided technical support to staff across different departments.',
+'Diagnosed and assisted in resolving computer hardware and software problems.',
+'Installed and configured software and supported Microsoft 365 applications.',
+'Guided non-technical users through troubleshooting procedures and application usage.',
+'Prepared ICT equipment for dispatch to branches across the country.',
+'Maintained equipment records and documentation to support ICT asset accountability.',
+],
+technologies: [
+'IT Support',
+'Hardware Troubleshooting',
+'Microsoft 365',
+'Software Installation',
+'ICT Asset Management',
+],
+},
 ]
 
 function Experience() {
-  return (
-    <section id="experience" className="bg-slate-900 px-6 py-16 sm:py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl">
+return ( <section
+   id="experience"
+   className="relative overflow-hidden bg-slate-900 px-6 py-20 sm:py-24 lg:py-28"
+ >
+{/* Background decoration */} <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-cyan-500/5 blur-3xl" />
 
-        {/* Section Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+```
+  <div className="relative mx-auto max-w-7xl">
+    {/* Section heading */}
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6 }}
+      className="mb-16"
+    >
+      <div className="mb-4 flex items-center gap-3">
+        <span className="h-px w-10 bg-cyan-400" />
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+          Experience
+        </p>
+      </div>
+
+      <h2 className="max-w-3xl text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+        Turning technical knowledge into{' '}
+        <span className="text-cyan-400">practical experience.</span>
+      </h2>
+
+      <p className="mt-5 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
+        My professional experience spans IT support, enterprise systems,
+        networking infrastructure and integrated security solutions.
+      </p>
+    </motion.div>
+
+    {/* Experience cards */}
+    <div className="space-y-8">
+      {experiences.map((experience, index) => (
+        <motion.article
+          key={experience.company}
+          initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="mb-14"
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{
+            duration: 0.6,
+            delay: index * 0.15,
+            ease: 'easeOut',
+          }}
+          whileHover={{ y: -4 }}
+          className="group relative rounded-2xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/10 backdrop-blur-xl transition-colors duration-300 hover:border-cyan-400/30 sm:p-8 lg:p-10"
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400 sm:tracking-[0.3em]">
-            Experience
-          </p>
+          {/* Card top accent */}
+          <div className="absolute left-0 top-8 h-12 w-1 rounded-r-full bg-cyan-400 opacity-70 transition-all duration-300 group-hover:h-16 group-hover:opacity-100" />
 
-          <h2 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl">
-            Where I've put my skills to work.
-          </h2>
+          {/* Header */}
+          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-start">
+            <div className="flex gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-400">
+                <BriefcaseBusiness size={22} />
+              </div>
 
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-400">
-            Practical experience supporting users, IT infrastructure,
-            networks and security systems.
-          </p>
-        </motion.div>
+              <div>
+                <h3 className="text-xl font-bold text-white sm:text-2xl">
+                  {experience.role}
+                </h3>
 
-        {/* Timeline */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.6 }}
-          className="relative ml-3 border-l border-slate-700"
-        >
-
-          {experiences.map((experience, index) => (
-            <motion.div
-              key={experience.company}
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.7,
-                delay: index * 0.2,
-                ease: 'easeOut',
-              }}
-              className="relative mb-12 pl-8 last:mb-0"
-            >
-
-              {/* Timeline dot */}
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.4,
-                  delay: index * 0.2 + 0.2,
-                  ease: 'backOut',
-                }}
-                className="absolute -left-[9px] top-1 h-4 w-4 rounded-full border-4 border-slate-900 bg-cyan-400"
-              />
-
-              {/* Experience Card */}
-              <motion.div
-                whileHover={{
-                  y: -5,
-                  transition: { duration: 0.2 },
-                }}
-                className="rounded-2xl border border-white/10 bg-slate-950 p-5 transition duration-300 hover:border-cyan-400/40 sm:p-7"
-              >
-
-                <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
-
-                  <div>
-                    <h3 className="text-2xl font-semibold text-white">
-                      {experience.role}
-                    </h3>
-
-                    <p className="mt-1 text-lg text-cyan-400">
-                      {experience.company}
-                    </p>
-                  </div>
-
-                  <span className="w-fit rounded-full border border-slate-700 px-4 py-1 text-sm text-slate-400">
-                    {experience.period}
-                  </span>
-
-                </div>
-
-                <p className="mt-5 leading-7 text-slate-400">
-                  {experience.description}
+                <p className="mt-1 text-base font-medium text-cyan-400 sm:text-lg">
+                  {experience.company}
                 </p>
 
-                {/* Responsibilities */}
-                <motion.ul
-                  initial="hidden"
-                  whileInView="visible"
+                <p className="mt-2 text-sm text-slate-500">
+                  {experience.type}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300">
+              <CalendarDays size={15} className="text-cyan-400" />
+              {experience.period}
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="mt-7 max-w-3xl text-sm leading-7 text-slate-400 sm:text-base">
+            {experience.description}
+          </p>
+
+          {/* Responsibilities */}
+          <div className="mt-8">
+            <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Key Responsibilities
+            </h4>
+
+            <div className="grid gap-x-10 gap-y-4 md:grid-cols-2">
+              {experience.responsibilities.map((item, itemIndex) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.08,
-                        delayChildren: 0.2,
-                      },
-                    },
+                  transition={{
+                    duration: 0.4,
+                    delay: index * 0.1 + itemIndex * 0.06,
                   }}
-                  className="mt-6 space-y-3"
+                  className="flex items-start gap-3"
                 >
-                  {experience.responsibilities.map((item) => (
-                    <motion.li
-                      key={item}
-                      variants={{
-                        hidden: {
-                          opacity: 0,
-                          x: -10,
-                        },
-                        visible: {
-                          opacity: 1,
-                          x: 0,
-                          transition: {
-                            duration: 0.4,
-                          },
-                        },
-                      }}
-                      className="flex gap-3 text-slate-300"
-                    >
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
-                      <span>{item}</span>
-                    </motion.li>
-                  ))}
-                </motion.ul>
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+                  <p className="text-sm leading-7 text-slate-300">
+                    {item}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
 
-              </motion.div>
-            </motion.div>
-          ))}
+          {/* Technologies */}
+          <div className="mt-8 border-t border-white/10 pt-6">
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Technologies & Areas
+            </h4>
 
-        </motion.div>
+            <div className="flex flex-wrap gap-2">
+              {experience.technologies.map((technology) => (
+                <span
+                  key={technology}
+                  className="rounded-lg border border-cyan-400/10 bg-cyan-400/5 px-3 py-1.5 text-xs font-medium text-cyan-300 transition-colors hover:border-cyan-400/30 hover:bg-cyan-400/10"
+                >
+                  {technology}
+                </span>
+              ))}
+            </div>
+          </div>
 
-      </div>
-    </section>
-  )
+          {/* Decorative arrow */}
+          <ArrowUpRight
+            size={20}
+            className="absolute right-6 top-6 text-slate-700 transition-colors group-hover:text-cyan-400 sm:right-8 sm:top-8"
+          />
+        </motion.article>
+      ))}
+    </div>
+  </div>
+</section>
+
+)
 }
 
 export default Experience
