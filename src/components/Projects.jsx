@@ -1,12 +1,6 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import {
-  Smartphone,
-  Search,
-  MapPin,
-  Monitor,
-  Package,
-  ShoppingCart,
-  Users,
   Wrench,
   ClipboardList,
   Database,
@@ -76,211 +70,98 @@ const projects = [
   },
 ]
 
-function ProjectPreview({ project }) {
+function ProjectPreview({ project, onImageClick }) {
+  const imagePreviews = {
+    mobile: {
+      src: 'find-a-technician-phone-preview.png',
+      alt: 'Find a Technician mobile application displayed on a smartphone',
+      label: 'View full Find a Technician image',
+    },
+    pos: {
+      src: 'biasharabox-dashboard-laptop-preview.png',
+      alt: 'BiasharaBox dashboard displayed on a laptop',
+      label: 'View full BiasharaBox dashboard preview',
+    },
+    repair: {
+      src: 'techheroes-repair-dashboard-laptop-preview.png',
+      alt: 'TechHeroes Solutions repair management dashboard displayed on a laptop',
+      label: 'View full TechHeroes repair dashboard preview',
+    },
+  }
+
+  const imagePreview = imagePreviews[project.type]
+
   return (
-    <div className="relative flex h-64 items-center justify-center overflow-hidden border-b border-white/10 bg-[#080f1d] p-5 sm:h-72">
-      <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl" />
-      <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
-
-      {/* Find a Technician preview */}
-      {project.type === 'mobile' && (
-        <div className="relative flex h-full w-full items-center justify-center gap-8">
-          <div className="hidden space-y-3 sm:block">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
-              Mobile experience
-            </p>
-            <h4 className="max-w-48 text-xl font-bold leading-snug text-white">
-              Technical help, made easier.
-            </h4>
-            <p className="max-w-48 text-sm leading-6 text-slate-400">
-              A mobile platform connecting customers with technicians.
-            </p>
-          </div>
-
-          <div className="relative w-40 rounded-[2rem] border-[5px] border-slate-700 bg-slate-950 p-3 shadow-2xl">
-            <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-slate-700" />
-
-            <div className="flex items-center justify-between">
-              <Smartphone size={15} className="text-cyan-400" />
-              <span className="text-[9px] text-slate-500">APP PREVIEW</span>
-            </div>
-
-            <h4 className="mt-5 text-sm font-bold text-white">
-              Find help nearby
-            </h4>
-
-            <div className="mt-3 flex items-center gap-2 rounded-lg border border-white/10 bg-slate-900 p-2">
-              <Search size={12} className="text-cyan-400" />
-              <span className="text-[9px] text-slate-500">
-                Find a technician
-              </span>
-            </div>
-
-            <div className="mt-4 flex items-center gap-2">
-              <MapPin size={11} className="text-cyan-400" />
-              <span className="text-[9px] text-slate-400">
-                Discover services
-              </span>
-            </div>
-
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              {['Electrical', 'Networking', 'Repairs', 'Other'].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-lg border border-white/10 bg-slate-900 p-2 text-center"
-                >
-                  <div className="mx-auto mb-2 h-5 w-5 rounded-md bg-cyan-400/10" />
-                  <span className="text-[8px] text-slate-400">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-4 h-1.5 rounded-full bg-cyan-400/20">
-              <div className="h-1.5 w-2/3 rounded-full bg-cyan-400" />
-            </div>
-          </div>
-        </div>
+    <div
+      className={`relative flex h-64 items-center justify-center overflow-hidden border-b border-[var(--border-color)] sm:h-72 ${
+        imagePreview
+          ? 'bg-slate-950 p-0'
+          : 'bg-[var(--surface-secondary)] p-5'
+      }`}
+    >
+      {/* Background ambient glows for projects without image previews */}
+      {!imagePreview && (
+        <>
+          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
+        </>
       )}
 
-      {/* BiasharaBox preview */}
-      {project.type === 'pos' && (
-        <div className="relative w-full max-w-xl rounded-xl border border-white/10 bg-slate-950/90 p-4 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-white/10 pb-3">
-            <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-400">
-                <ShoppingCart size={14} />
-              </div>
-              <span className="text-xs font-bold text-white">
-                BiasharaBox
-              </span>
-            </div>
+      {/* Actual project image previews */}
+      {imagePreview && (
+        <button
+          type="button"
+          onClick={onImageClick}
+          aria-label={imagePreview.label}
+          className="absolute inset-0 z-10 h-full w-full cursor-zoom-in"
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}images/${imagePreview.src}`}
+            alt={imagePreview.alt}
+            className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
+            loading="lazy"
+          />
 
-            <span className="text-[9px] uppercase tracking-widest text-slate-500">
-              Dashboard concept
-            </span>
-          </div>
-
-          <div className="mt-4 grid grid-cols-3 gap-3">
-            {[
-              { label: 'Sales', icon: ShoppingCart },
-              { label: 'Inventory', icon: Package },
-              { label: 'Customers', icon: Users },
-            ].map(({ label, icon: Icon }) => (
-              <div
-                key={label}
-                className="rounded-lg border border-white/10 bg-slate-900 p-3"
-              >
-                <Icon size={15} className="text-cyan-400" />
-                <p className="mt-3 text-[10px] text-slate-400">
-                  {label}
-                </p>
-                <div className="mt-2 h-2 w-3/4 rounded bg-slate-700" />
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 rounded-lg border border-white/10 bg-slate-900 p-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-300">
-                Business overview
-              </span>
-              <Monitor size={14} className="text-cyan-400" />
-            </div>
-
-            <div className="mt-4 flex h-16 items-end gap-2">
-              {[35, 60, 45, 80, 55, 95, 70, 85, 50, 75].map(
-                (height, index) => (
-                  <div
-                    key={index}
-                    className="flex-1 rounded-t-sm bg-cyan-400/30 transition-colors group-hover:bg-cyan-400/50"
-                    style={{ height: `${height}%` }}
-                  />
-                ),
-              )}
-            </div>
-          </div>
-        </div>
+          <span className="absolute bottom-4 right-4 rounded-full bg-black/60 px-3 py-2 text-xs font-medium text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
+            Click to enlarge
+          </span>
+        </button>
       )}
-
-      {/* TechHeroes preview */}
-      {project.type === 'repair' && (
-        <div className="relative w-full max-w-xl rounded-xl border border-white/10 bg-slate-950/90 p-4 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-white/10 pb-3">
-            <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-400/10 text-emerald-400">
-                <Wrench size={14} />
-              </div>
-              <span className="text-xs font-bold text-white">
-                TechHeroes Solutions
-              </span>
-            </div>
-
-            <span className="text-[9px] uppercase tracking-widest text-slate-500">
-              Desktop concept
-            </span>
-          </div>
-
-          <div className="mt-4 grid grid-cols-3 gap-3">
-            <div className="col-span-1 space-y-2 border-r border-white/10 pr-3">
-              {[
-                { label: 'Customers', icon: Users },
-                { label: 'Repairs', icon: Wrench },
-                { label: 'Records', icon: Database },
-              ].map(({ label, icon: Icon }) => (
-                <div
-                  key={label}
-                  className="flex items-center gap-2 rounded-lg bg-slate-900 p-2"
-                >
-                  <Icon size={12} className="text-emerald-400" />
-                  <span className="text-[9px] text-slate-400">
-                    {label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="col-span-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-300">
-                  Repair workspace
-                </span>
-                <ClipboardList size={14} className="text-emerald-400" />
-              </div>
-
-              <div className="mt-3 space-y-2">
-                {['Customer records', 'Repair tracking', 'Service details'].map(
-                  (item) => (
-                    <div
-                      key={item}
-                      className="flex items-center justify-between rounded-lg border border-white/10 bg-slate-900 p-2"
-                    >
-                      <span className="text-[9px] text-slate-400">
-                        {item}
-                      </span>
-                      <Check size={12} className="text-emerald-400" />
-                    </div>
-                  ),
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <span className="absolute bottom-3 right-5 text-[9px] font-medium uppercase tracking-widest text-slate-600">
-        Illustrative preview
-      </span>
     </div>
   )
 }
 
 function Projects() {
+  const [previewImage, setPreviewImage] = useState(null)
+
+  // Close image preview using Escape
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setPreviewImage(null)
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+    }
+  }, [])
+
+  // Prevent background scrolling while image is open
+  useEffect(() => {
+    document.body.style.overflow = previewImage ? 'hidden' : ''
+
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [previewImage])
+
   return (
     <section
       id="projects"
-      className="bg-slate-950 px-6 py-16 sm:py-20 lg:py-24"
+      className="bg-[var(--page-bg)] px-6 py-16 transition-colors duration-300 sm:py-20 lg:py-24"
     >
       <div className="mx-auto max-w-7xl">
 
@@ -292,15 +173,15 @@ function Projects() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="mb-14"
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400 sm:tracking-[0.3em]">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--accent-color)] sm:tracking-[0.3em]">
             Projects
           </p>
 
-          <h2 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-bold text-[var(--text-primary)] sm:text-4xl md:text-5xl">
             Ideas turned into working solutions.
           </h2>
 
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-400">
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--text-secondary)]">
             A selection of software and technology projects I've worked on
             while developing my technical skills.
           </p>
@@ -339,36 +220,49 @@ function Projects() {
                 y: -6,
                 transition: { duration: 0.25 },
               }}
-              className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900 transition-colors duration-300 hover:border-cyan-400/40"
+              className="group overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--surface-bg)] transition-colors duration-300 hover:border-[var(--accent-color)]/50"
             >
-              <ProjectPreview project={project} />
+              <ProjectPreview
+                project={project}
+                onImageClick={() => {
+                  setPreviewImage(
+                    `${import.meta.env.BASE_URL}images/${
+                      project.type === 'mobile'
+                        ? 'find-a-technician-phone-preview.png'
+                        : project.type === 'pos'
+                          ? 'biasharabox-dashboard-laptop-preview.png'
+                          : 'techheroes-repair-dashboard-laptop-preview.png'
+                    }`
+                  )
+                }}
+              />
 
               <div className="p-5 sm:p-7">
 
                 {/* Category and status */}
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[var(--accent-color)]">
                     {project.category}
                   </p>
 
-                  <span className="rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-300">
+                  <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:text-amber-300">
                     {project.status}
                   </span>
                 </div>
 
                 {/* Project title */}
                 <div className="mt-3 flex items-start justify-between gap-4">
-                  <h3 className="text-2xl font-bold text-white">
+                  <h3 className="text-2xl font-bold text-[var(--text-primary)]">
                     {project.title}
                   </h3>
 
-                  <span className="text-sm font-medium text-slate-600">
+                  <span className="text-sm font-medium text-[var(--text-secondary)] opacity-60">
                     0{index + 1}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
+                <p className="mt-4 text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
                   {project.description}
                 </p>
 
@@ -377,7 +271,7 @@ function Projects() {
                   {project.technologies.map((technology) => (
                     <span
                       key={technology}
-                      className="rounded-full border border-white/5 bg-slate-950 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-cyan-400/30 hover:text-cyan-400"
+                      className="rounded-full border border-[var(--border-color)] bg-[var(--surface-secondary)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
                     >
                       {technology}
                     </span>
@@ -385,8 +279,8 @@ function Projects() {
                 </div>
 
                 {/* Development focus */}
-                <div className="mt-7 border-t border-white/10 pt-6">
-                  <p className="mb-4 text-sm font-semibold text-white">
+                <div className="mt-7 border-t border-[var(--border-color)] pt-6">
+                  <p className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
                     Development Focus
                   </p>
 
@@ -394,12 +288,13 @@ function Projects() {
                     {project.focus.map((item) => (
                       <li
                         key={item}
-                        className="flex items-start gap-2 text-sm text-slate-400"
+                        className="flex items-start gap-2 text-sm text-[var(--text-secondary)]"
                       >
                         <Check
                           size={15}
-                          className="mt-0.5 shrink-0 text-cyan-400"
+                          className="mt-0.5 shrink-0 text-[var(--accent-color)]"
                         />
+
                         {item}
                       </li>
                     ))}
@@ -407,12 +302,12 @@ function Projects() {
                 </div>
 
                 {/* Footer */}
-                <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-5">
-                  <span className="text-xs text-slate-500">
+                <div className="mt-7 flex items-center justify-between border-t border-[var(--border-color)] pt-5">
+                  <span className="text-xs text-[var(--text-secondary)]">
                     Project {index + 1} / 03
                   </span>
 
-                  <span className="flex items-center gap-2 text-sm font-medium text-cyan-400 transition-all group-hover:gap-3">
+                  <span className="flex items-center gap-2 text-sm font-medium text-[var(--accent-color)] transition-all group-hover:gap-3">
                     Development journey
                     <ArrowUpRight size={16} />
                   </span>
@@ -424,6 +319,35 @@ function Projects() {
         </motion.div>
 
       </div>
+
+      {/* Full-screen image preview */}
+      {previewImage && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 backdrop-blur-md"
+          onClick={() => setPreviewImage(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Full-size project image preview"
+        >
+          {/* Close button */}
+          <button
+            type="button"
+            onClick={() => setPreviewImage(null)}
+            aria-label="Close image preview"
+            className="absolute right-5 top-5 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-3xl text-white transition-colors hover:bg-white/20"
+          >
+            &times;
+          </button>
+
+          {/* Full image without cropping */}
+          <img
+            src={previewImage}
+            alt="Full-size project preview"
+            onClick={(event) => event.stopPropagation()}
+            className="max-h-[90vh] max-w-[95vw] rounded-xl object-contain shadow-2xl"
+          />
+        </div>
+      )}
     </section>
   )
 }

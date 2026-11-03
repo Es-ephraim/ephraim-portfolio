@@ -1,14 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
 @import "tailwindcss";
+
+/* =========================================
+   THEME VARIABLES
+========================================= */
 
 :root {
   font-family: Inter, "Segoe UI", sans-serif;
-  color: #f8fafc;
-  background: #070b14;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Dark mode — existing portfolio colours */
+  color-scheme: dark;
+
+  --page-bg: #070b14;
+  --surface-bg: #0f172a;
+  --surface-secondary: #111c30;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: rgba(148, 163, 184, 0.15);
+  --accent-color: #22d3ee;
+  --accent-secondary: #818cf8;
+  --grid-color: rgba(148, 163, 184, 0.035);
+  --selection-bg: #67e8f9;
+  --selection-text: #020617;
+
+  color: var(--text-primary);
+  background: var(--page-bg);
 }
+
+/* =========================================
+   LIGHT THEME VARIABLES
+========================================= */
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* Main backgrounds */
+  --page-bg: #f8faff;
+  --surface-bg: #ffffff;
+  --surface-secondary: #f1f5ff;
+
+  /* Text */
+  --text-primary: #172033;
+  --text-secondary: #64748b;
+
+  /* Borders */
+  --border-color: rgba(71, 85, 105, 0.14);
+
+  /* Main accents */
+  --accent-color: #0891b2;
+  --accent-secondary: #6366f1;
+
+  /* Additional accent colours */
+  --accent-purple: #8b5cf6;
+  --accent-blue: #3b82f6;
+  --accent-teal: #0d9488;
+  --accent-coral: #f97316;
+  --accent-green: #10b981;
+  --accent-rose: #f43f5e;
+  --accent-amber: #f59e0b;
+
+  /* Decorative elements */
+  --grid-color: rgba(99, 102, 241, 0.055);
+
+  /* Text selection */
+  --selection-bg: #c4b5fd;
+  --selection-text: #312e81;
+}
+
+/* =========================================
+   GLOBAL STYLES
+========================================= */
 
 * {
   box-sizing: border-box;
@@ -16,7 +82,7 @@
 
 html {
   scroll-behavior: smooth;
-  background: #070b14;
+  background: var(--page-bg);
 }
 
 body {
@@ -24,6 +90,12 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+  color: var(--text-primary);
+  background: var(--page-bg);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 button,
@@ -36,15 +108,19 @@ a {
 }
 
 ::selection {
-  color: #020617;
-  background: #67e8f9;
+  color: var(--selection-text);
+  background: var(--selection-bg);
 }
 
+/* =========================================
+   HERO BACKGROUND
+========================================= */
+
 .hero-grid {
-  background-color: #070b14;
+  background-color: var(--page-bg);
   background-image:
-    linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 54px 54px;
 }
 
@@ -53,8 +129,36 @@ a {
   filter: blur(120px);
 }
 
+/* Softer colourful glows for light mode */
+:root[data-theme="light"] .hero-glow {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.16),
+    rgba(139, 92, 246, 0.13),
+    rgba(13, 148, 136, 0.10)
+  );
+}
+
 .gradient-text {
-  background: linear-gradient(100deg, #67e8f9 5%, #22d3ee 45%, #818cf8 100%);
+  background: linear-gradient(
+    100deg,
+    #67e8f9 5%,
+    #22d3ee 45%,
+    #818cf8 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Colourful gradient text in light mode */
+:root[data-theme="light"] .gradient-text {
+  background: linear-gradient(
+    100deg,
+    #0891b2 0%,
+    #6366f1 50%,
+    #8b5cf6 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -62,14 +166,301 @@ a {
 
 .section-grid {
   background-image:
-    linear-gradient(rgba(148, 163, 184, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.025) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 48px 48px;
 }
+
+/* =========================================
+   COLOURFUL LIGHT THEME UTILITIES
+========================================= */
+
+/* Blue, purple and pink gradient text */
+:root[data-theme="light"] .accent-gradient {
+  background: linear-gradient(
+    120deg,
+    #3b82f6,
+    #8b5cf6,
+    #ec4899
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft colourful gradient background */
+:root[data-theme="light"] .colourful-gradient {
+  background: linear-gradient(
+    135deg,
+    #dbeafe,
+    #ede9fe,
+    #fce7f3
+  );
+}
+
+/* Colourful card */
+:root[data-theme="light"] .colourful-card {
+  background: linear-gradient(
+    145deg,
+    #ffffff,
+    #f5f7ff
+  );
+
+  border: 1px solid rgba(99, 102, 241, 0.14);
+
+  box-shadow:
+    0 12px 35px rgba(99, 102, 241, 0.07);
+}
+
+/* Colourful button */
+:root[data-theme="light"] .colourful-button {
+  background: linear-gradient(
+    110deg,
+    #0891b2,
+    #6366f1
+  );
+
+  color: #ffffff;
+
+  transition: all 0.3s ease;
+}
+
+:root[data-theme="light"] .colourful-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 24px rgba(99, 102, 241, 0.25);
+}
+
+/* Reusable accent backgrounds */
+:root[data-theme="light"] .accent-blue-bg {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+:root[data-theme="light"] .accent-purple-bg {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+:root[data-theme="light"] .accent-teal-bg {
+  background: #f0fdfa;
+  color: #0d9488;
+}
+
+:root[data-theme="light"] .accent-coral-bg {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+:root[data-theme="light"] .accent-green-bg {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+:root[data-theme="light"] .accent-rose-bg {
+  background: #fff1f2;
+  color: #e11d48;
+}
+
+:root[data-theme="light"] .accent-amber-bg {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+/* =========================================
+   LIGHT THEME GLASS EFFECTS
+========================================= */
+
+/* Main glass surface */
+:root[data-theme="light"] .light-glass {
+  isolation: isolate;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.68);
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+
+  box-shadow:
+    0 8px 32px rgba(15, 23, 42, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Soft reflection across the glass */
+:root[data-theme="light"] .light-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.25) 25%,
+    transparent 55%,
+    rgba(186, 230, 253, 0.12) 100%
+  );
+
+  opacity: 0.8;
+}
+
+/* Visible diagonal glass reflection */
+:root[data-theme="light"] .light-glass::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 80%;
+  height: 200%;
+
+  z-index: 2;
+  pointer-events: none;
+
+  transform: rotate(28deg);
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.65),
+    transparent
+  );
+
+  transition: left 0.8s ease;
+}
+
+/* Reflection animation on hover */
+@media (hover: hover) {
+  :root[data-theme="light"] .light-glass:hover::after {
+    left: 130%;
+  }
+
+  :root[data-theme="light"] .light-glass:hover {
+    box-shadow:
+      0 14px 38px rgba(15, 23, 42, 0.075),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Keep card content above the glass reflection */
+:root[data-theme="light"] .light-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================
+   NAVBAR GLASS EFFECT
+========================================= */
+
+.navbar-glass {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+
+:root[data-theme="light"] .navbar-glass {
+  background: rgba(255, 255, 255, 0.72) !important;
+
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  border-bottom: 1px solid rgba(99, 102, 241, 0.12);
+
+  box-shadow:
+    0 4px 24px rgba(15, 23, 42, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* =========================================
+   HERO PROFILE GLASS EFFECT
+========================================= */
+
+.hero-card-glow {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+:root[data-theme="light"] .hero-card-glow {
+  opacity: 1;
+
+  background: radial-gradient(
+    circle,
+    rgba(34, 211, 238, 0.16) 0%,
+    rgba(99, 102, 241, 0.08) 45%,
+    transparent 75%
+  );
+
+  filter: blur(35px);
+}
+
+/* Main profile card */
+:root[data-theme="light"] .hero-profile-card {
+  background: rgba(255, 255, 255, 0.64);
+
+  border-color: rgba(99, 102, 241, 0.14);
+
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  box-shadow:
+    0 20px 55px rgba(15, 23, 42, 0.08),
+    0 4px 15px rgba(8, 145, 178, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Floating location badge */
+:root[data-theme="light"] .hero-location-card {
+  background: rgba(255, 255, 255, 0.75);
+
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+
+  border-color: rgba(99, 102, 241, 0.16);
+
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* =========================================
+   SECTION STYLES
+========================================= */
 
 section {
   scroll-margin-top: 90px;
 }
+
+/* =========================================
+   THEME TRANSITIONS
+========================================= */
+
+body,
+nav,
+footer,
+section,
+article,
+button,
+a,
+input,
+textarea,
+.light-glass {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -83,4 +474,27 @@ section {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+:root[data-theme="light"] .about-amber-glow {
+  opacity: 1;
+}
+:root[data-theme="light"] .skills-amber-glow {
+  opacity: 1;
+}
+.brand-signature {
+  font-family: 'Caveat', cursive;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1px;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0 5px 3px 2px;
+  transform: rotate(-5deg);
+  transition: transform 0.3s ease;
+}
+
+.brand-signature:hover {
+  transform: rotate(0deg) scale(1.08);
 }

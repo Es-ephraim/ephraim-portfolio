@@ -36,7 +36,7 @@ function PageShell() {
 function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-slate-950">
+     <div className="min-h-screen bg-[var(--page-bg)] text-[var(--text-primary)] transition-colors duration-300">
         <ScrollToTop />
         <Navbar />
 

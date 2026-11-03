@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   Wrench,
   Network,
@@ -6,8 +6,8 @@ import {
   Code2,
   Server,
   ArrowUpRight,
-} from 'lucide-react'
-import { motion, AnimatePresence } from 'motion/react'
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 const skillGroups = [
   {
@@ -215,7 +215,7 @@ const skillGroups = [
       },
     ],
   },
-]
+];
 
 // Individual interactive skill tag
 function SkillTag({ skill, isOpen, onToggle, onClose }) {
@@ -232,8 +232,8 @@ function SkillTag({ skill, isOpen, onToggle, onClose }) {
         aria-label={`${skill.name}. ${skill.description}`}
         className={`rounded-lg border px-3 py-2 text-left text-xs transition-colors duration-200 sm:text-sm ${
           isOpen
-            ? 'border-cyan-400/50 bg-cyan-400/10 text-cyan-300'
-            : 'border-white/[0.07] bg-slate-950/80 text-slate-300 hover:border-cyan-400/40 hover:text-cyan-300'
+            ? 'border-[var(--accent-color)] bg-[var(--surface-secondary)] text-[var(--accent-color)]'
+            : 'border-[var(--border-color)] bg-[var(--surface-secondary)] text-[var(--text-primary)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]'
         }`}
       >
         {skill.name}
@@ -246,34 +246,34 @@ function SkillTag({ skill, isOpen, onToggle, onClose }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 5, scale: 0.96 }}
             transition={{ duration: 0.18 }}
-            className="absolute bottom-full left-1/2 z-50 mb-3 w-56 -translate-x-1/2 rounded-xl border border-cyan-400/20 bg-slate-900/65 p-4 shadow-xl shadow-black/30 backdrop-blur-xl"
+            className="absolute bottom-full left-1/2 z-50 mb-3 w-56 -translate-x-1/2 rounded-xl border border-[var(--border-color)] bg-[var(--surface-bg)] p-4 shadow-xl backdrop-blur-xl"
           >
-            <p className="text-xs font-semibold text-cyan-400">
+            <p className="text-xs font-semibold text-[var(--accent-color)]">
               {skill.name}
             </p>
 
-            <p className="mt-2 text-xs leading-6 text-slate-300">
+            <p className="mt-2 text-xs leading-6 text-[var(--text-secondary)]">
               {skill.description}
             </p>
 
-            <div className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-b border-r border-cyan-400/20 bg-slate-900" />
+            <div className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-b border-r border-[var(--border-color)] bg-[var(--surface-bg)]" />
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
 
 function Skills() {
-  const [activeSkill, setActiveSkill] = useState(null)
+  const [activeSkill, setActiveSkill] = useState(null);
 
   return (
     <section
       id="skills"
-      className="relative overflow-hidden bg-[#070b14] px-6 py-20 sm:py-24 lg:py-28"
+      className="relative overflow-hidden bg-[var(--page-bg)] px-6 py-20 text-[var(--text-primary)] transition-colors duration-300 sm:py-24 lg:py-28"
     >
       {/* Background glow */}
-      <div className="pointer-events-none absolute -right-40 top-40 h-96 w-96 rounded-full bg-cyan-500/5 blur-[120px]" />
+      <div className="pointer-events-none absolute -right-40 top-40 h-96 w-96 rounded-full bg-[var(--accent-color)]/5 blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl">
         {/* Heading */}
@@ -284,24 +284,24 @@ function Skills() {
           transition={{ duration: 0.6 }}
           className="mb-14 max-w-3xl"
         >
-          <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
-            <span className="h-px w-8 bg-cyan-400" />
+          <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.25em] text-[var(--accent-color)]">
+            <span className="h-px w-8 bg-[var(--accent-color)]" />
             Technical Skills
           </p>
 
-          <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
             Tools I use to{' '}
             <span className="gradient-text">solve problems.</span>
           </h2>
 
-          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
+          <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--text-secondary)] sm:text-lg">
             My technical foundation combines hands-on IT support,
             infrastructure, security systems and software development.
             I continue to expand my skills through practical work and
             independent projects.
           </p>
 
-          <p className="mt-4 text-sm text-slate-500">
+          <p className="mt-4 text-sm text-[var(--text-secondary)]">
             Hover over or tap any skill to learn more.
           </p>
         </motion.div>
@@ -320,7 +320,7 @@ function Skills() {
           className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
         >
           {skillGroups.map((group) => {
-            const Icon = group.icon
+            const Icon = group.icon;
 
             return (
               <motion.div
@@ -334,25 +334,25 @@ function Skills() {
                   },
                 }}
                 whileHover={{ y: -5 }}
-                className="group flex flex-col rounded-2xl border border-white/10 bg-slate-900/60 p-6 transition-colors duration-300 hover:border-cyan-400/30 hover:bg-slate-900 sm:p-7"
+                className="group flex flex-col rounded-2xl border border-[var(--border-color)] bg-[var(--surface-bg)] p-6 transition-all duration-300 hover:border-[var(--accent-color)] sm:p-7"
               >
                 {/* Card header */}
                 <div className="flex items-start justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-400/15 bg-cyan-400/10 text-cyan-400 transition-colors group-hover:bg-cyan-400/15">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--border-color)] bg-[var(--surface-secondary)] text-[var(--accent-color)] transition-colors group-hover:bg-[var(--accent-color)]/10">
                     <Icon size={23} />
                   </div>
 
-                  <span className="text-sm font-medium tracking-widest text-slate-600">
+                  <span className="text-sm font-medium tracking-widest text-[var(--text-secondary)] opacity-60">
                     {group.number}
                   </span>
                 </div>
 
                 <div className="mt-6">
-                  <h3 className="text-xl font-semibold text-white">
+                  <h3 className="text-xl font-semibold text-[var(--text-primary)]">
                     {group.title}
                   </h3>
 
-                  <p className="mt-2 text-sm text-slate-500">
+                  <p className="mt-2 text-sm text-[var(--text-secondary)]">
                     {group.subtitle}
                   </p>
                 </div>
@@ -360,7 +360,7 @@ function Skills() {
                 {/* Interactive skills */}
                 <div className="mt-6 flex flex-wrap gap-2">
                   {group.skills.map((skill) => {
-                    const skillId = `${group.number}-${skill.name}`
+                    const skillId = `${group.number}-${skill.name}`;
 
                     return (
                       <SkillTag
@@ -374,18 +374,18 @@ function Skills() {
                           )
                         }
                       />
-                    )
+                    );
                   })}
                 </div>
 
                 <div className="mt-auto flex justify-end pt-6">
                   <ArrowUpRight
                     size={17}
-                    className="text-slate-600 transition-colors group-hover:text-cyan-400"
+                    className="text-[var(--text-secondary)] opacity-60 transition-colors group-hover:text-[var(--accent-color)]"
                   />
                 </div>
               </motion.div>
-            )
+            );
           })}
         </motion.div>
 
@@ -395,10 +395,10 @@ function Skills() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mt-10 rounded-2xl border border-cyan-400/10 bg-cyan-400/[0.03] p-6 sm:p-8"
+          className="mt-10 rounded-2xl border border-[var(--border-color)] bg-[var(--surface-bg)] p-6 sm:p-8"
         >
-          <p className="text-sm leading-7 text-slate-400 sm:text-base">
-            <span className="font-semibold text-cyan-400">
+          <p className="text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
+            <span className="font-semibold text-[var(--accent-color)]">
               Always learning.
             </span>{' '}
             Technology keeps evolving, and so do I. I'm continuously
@@ -408,7 +408,7 @@ function Skills() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
 
-export default Skills
+export default Skills;
